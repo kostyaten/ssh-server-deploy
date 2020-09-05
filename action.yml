@@ -1,0 +1,36 @@
+name: SSH Server Deploy
+description: 'Automatic server upload via SSH and SCP'
+
+inputs:
+  host:
+    description: "Host"
+    required: true
+  port:
+    description: "Port"
+    required: false
+    default: 22
+  username:
+    description: "Username"
+    required: true
+  password:
+    description: "Password"
+    required: true
+  before_script:
+    description: "Before script"
+    required: false
+  after_script:
+    description: "After script"
+    required: false
+  scp_source:
+    description: "After script"
+    required: false
+  scp_target:
+    description: "After script"
+    required: false
+    default: "~"
+branding:
+  icon: sun
+  color: orange
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
