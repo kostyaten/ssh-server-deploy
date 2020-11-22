@@ -14,7 +14,10 @@ inputs:
     required: true
   password:
     description: "Password"
-    required: true
+    required: false
+  private_key:
+    description: "Private key"
+    required: false
   before_script:
     description: "Before script"
     required: false

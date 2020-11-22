@@ -3,7 +3,15 @@ set -e
 
 if ! [ -z "$INPUT_BEFORE_SCRIPT" ]; then
   CMD="${INPUT_BEFORE_SCRIPT/$'\n'/' && '}"
-  sshpass -p $INPUT_PASSWORD ssh -o stricthostkeychecking=no -p $INPUT_PORT $INPUT_USERNAME@$INPUT_HOST "$CMD";
+
+  if ! [ -z "$INPUT_PASSWORD" ]; then
+    sshpass -p $INPUT_PASSWORD ssh -o stricthostkeychecking=no -p $INPUT_PORT $INPUT_USERNAME@$INPUT_HOST "$CMD";
+  fi
+
+  if ! [ -z "$INPUT_PRIVATE_KEY" ]; then
+    echo "${$INPUT_PRIVATE_KEY}" | ssh -q -i /dev/stdin -p $INPUT_PORT $INPUT_USERNAME@$INPUT_HOST "$CMD";
+  fi
+
 fi
 
 if ! [ -z "$INPUT_SCP_SOURCE" ]; then
@@ -12,5 +20,13 @@ fi
 
 if ! [ -z "$INPUT_AFTER_SCRIPT" ]; then
   CMD="${INPUT_AFTER_SCRIPT/$'\n'/' && '}"
-  sshpass -p $INPUT_PASSWORD ssh -o stricthostkeychecking=no -p $INPUT_PORT $INPUT_USERNAME@$INPUT_HOST "$CMD";
+
+  if ! [ -z "$INPUT_PASSWORD" ]; then
+    sshpass -p $INPUT_PASSWORD ssh -o stricthostkeychecking=no -p $INPUT_PORT $INPUT_USERNAME@$INPUT_HOST "$CMD";
+  fi
+
+  if ! [ -z "$INPUT_PRIVATE_KEY" ]; then
+    echo "${$INPUT_PRIVATE_KEY}" | ssh -q -i /dev/stdin -p $INPUT_PORT $INPUT_USERNAME@$INPUT_HOST "$CMD";
+  fi
+
 fi
