@@ -9,7 +9,7 @@ if ! [ -z "$INPUT_BEFORE_SCRIPT" ]; then
   fi
 
   if ! [ -z "$INPUT_PRIVATE_KEY" ]; then
-    echo "${$INPUT_PRIVATE_KEY}" | ssh -q -i /dev/stdin -p $INPUT_PORT $INPUT_USERNAME@$INPUT_HOST "$CMD";
+    echo "${INPUT_PRIVATE_KEY}" | ssh -q -i /dev/stdin -p $INPUT_PORT $INPUT_USERNAME@$INPUT_HOST "$CMD";
   fi
 
 fi
@@ -26,7 +26,7 @@ if ! [ -z "$INPUT_AFTER_SCRIPT" ]; then
   fi
 
   if ! [ -z "$INPUT_PRIVATE_KEY" ]; then
-    echo "${$INPUT_PRIVATE_KEY}" | ssh -q -i /dev/stdin -p $INPUT_PORT $INPUT_USERNAME@$INPUT_HOST "$CMD";
+    echo "${INPUT_PRIVATE_KEY}" | ssh -q -i /dev/stdin -p $INPUT_PORT $INPUT_USERNAME@$INPUT_HOST "$CMD";
   fi
 
 fi
