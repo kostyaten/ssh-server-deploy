@@ -1,6 +1,20 @@
 #!/bin/bash
 set -e
 
+setup_ssh(){
+    SSH_PATH="$HOME/.ssh"
+    mkdir -p "$SSH_PATH"
+    touch "$SSH_PATH/known_hosts"
+
+    echo "$INPUT_PRIVATE_KEY" > "$SSH_PATH/id_rsa"
+    chmod 700 "$SSH_PATH"
+    chmod 600 "$SSH_PATH/known_hosts" "$SSH_PATH/id_rsa"
+    eval $(ssh-agent)
+    ssh-add "$SSH_PATH/id_rsa"
+    ssh-keyscan -t rsa $INPUT_HOST >> "$SSH_PATH/known_hosts"
+}
+
+
 if ! [ -z "$INPUT_BEFORE_SCRIPT" ]; then
   CMD="${INPUT_BEFORE_SCRIPT/$'\n'/' && '}"
 
@@ -9,7 +23,8 @@ if ! [ -z "$INPUT_BEFORE_SCRIPT" ]; then
   fi
 
   if ! [ -z "$INPUT_PRIVATE_KEY" ]; then
-    echo "${INPUT_PRIVATE_KEY}" | ssh -q -i /dev/stdin -p $INPUT_PORT $INPUT_USERNAME@$INPUT_HOST "$CMD";
+    setup_ssh
+    ssh -q -i ~/.ssh/id_rsa -p $INPUT_PORT -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $INPUT_USERNAME@$INPUT_HOST "$CMD";
   fi
 
 fi
@@ -26,7 +41,8 @@ if ! [ -z "$INPUT_AFTER_SCRIPT" ]; then
   fi
 
   if ! [ -z "$INPUT_PRIVATE_KEY" ]; then
-    echo "${INPUT_PRIVATE_KEY}" | ssh -q -i /dev/stdin -p $INPUT_PORT $INPUT_USERNAME@$INPUT_HOST "$CMD";
+    setup_ssh
+    ssh -q -i ~/.ssh/id_rsa -p $INPUT_PORT -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $INPUT_USERNAME@$INPUT_HOST "$CMD";
   fi
 
 fi
