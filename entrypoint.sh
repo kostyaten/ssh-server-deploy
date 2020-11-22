@@ -24,7 +24,7 @@ if ! [ -z "$INPUT_BEFORE_SCRIPT" ]; then
 
   if ! [ -z "$INPUT_PRIVATE_KEY" ]; then
     setup_ssh
-    ssh -q -i ~/.ssh/id_rsa -p $INPUT_PORT -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $INPUT_USERNAME@$INPUT_HOST "$CMD";
+    ssh -o stricthostkeychecking=no -i ~/.ssh/id_rsa -p $INPUT_PORT $INPUT_USERNAME@$INPUT_HOST "$CMD";
   fi
 
 fi
@@ -42,7 +42,7 @@ if ! [ -z "$INPUT_AFTER_SCRIPT" ]; then
 
   if ! [ -z "$INPUT_PRIVATE_KEY" ]; then
     setup_ssh
-    ssh -q -i ~/.ssh/id_rsa -p $INPUT_PORT -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $INPUT_USERNAME@$INPUT_HOST "$CMD";
+    ssh -o stricthostkeychecking=no -i ~/.ssh/id_rsa -p $INPUT_PORT $INPUT_USERNAME@$INPUT_HOST "$CMD";
   fi
 
 fi
