@@ -11,7 +11,8 @@ setup_ssh(){
     chmod 600 "$SSH_PATH/known_hosts" "$SSH_PATH/id_rsa"
     eval $(ssh-agent)
     ssh-add "$SSH_PATH/id_rsa"
-    #ssh-keyscan -t rsa $INPUT_HOST >> "$SSH_PATH/known_hosts"
+    ssh-keyscan -t rsa $INPUT_HOST >> "$SSH_PATH/known_hosts"
+    echo -n ""
 }
 
 
@@ -25,6 +26,8 @@ if ! [ -z "$INPUT_BEFORE_SCRIPT" ]; then
   if ! [ -z "$INPUT_PRIVATE_KEY" ]; then
     echo -n "before script start"
     setup_ssh
+    echo -n $INPUT_PORT $INPUT_USERNAME@$INPUT_HOST "$CMD"
+    echo -n ""
     ssh -o stricthostkeychecking=no -p $INPUT_PORT $INPUT_USERNAME@$INPUT_HOST "$CMD";
     echo -n "before script end"
   fi
