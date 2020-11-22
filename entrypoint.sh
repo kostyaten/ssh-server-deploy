@@ -11,7 +11,7 @@ setup_ssh(){
     chmod 600 "$SSH_PATH/known_hosts" "$SSH_PATH/id_rsa"
     eval $(ssh-agent)
     ssh-add "$SSH_PATH/id_rsa"
-    ssh-keyscan -t rsa $INPUT_HOST >> "$SSH_PATH/known_hosts"
+#    ssh-keyscan -t rsa $INPUT_HOST >> "$SSH_PATH/known_hosts"
     echo -n ""
 }
 
