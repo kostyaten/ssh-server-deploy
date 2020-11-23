@@ -16,9 +16,8 @@ setup_ssh(){
 
 
 if ! [ -z "$INPUT_BEFORE_SCRIPT" ]; then
-  echo -n "$INPUT_BEFORE_SCRIPT"
   CMD="${INPUT_BEFORE_SCRIPT/$'\n'/' && '}"
-  echo -n "$CMD"
+  CMD=`echo $CMD | sed 's/&&$//'`
 
   if ! [ -z "$INPUT_PASSWORD" ]; then
       sshpass -p $INPUT_PASSWORD ssh -o StrictHostKeyChecking=no -p $INPUT_PORT $INPUT_USERNAME@$INPUT_HOST "$CMD";
@@ -37,6 +36,7 @@ fi
 
 if ! [ -z "$INPUT_AFTER_SCRIPT" ]; then
   CMD="${INPUT_AFTER_SCRIPT/$'\n'/' && '}"
+  CMD=`echo $CMD | sed 's/&&$//'`
 
   if ! [ -z "$INPUT_PASSWORD" ]; then
     sshpass -p $INPUT_PASSWORD ssh -o StrictHostKeyChecking=no -p $INPUT_PORT $INPUT_USERNAME@$INPUT_HOST "$CMD";
