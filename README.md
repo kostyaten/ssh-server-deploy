@@ -59,14 +59,3 @@ jobs:
             whoami
 ```
 
-
-| Param         | Value         |
-| ------------- |:-------------:|
-| host          | Host          |
-| port          | Port          |
-| username      | Username      |
-| password      | Password      |
-| scp_source    | List the files and directories that you want to upload to the server      |
-| scp_target    | Directory where uploaded files will be |
-| before_script | Executes commands before uploading |
-| after_script  | Executes commands after upload |
