@@ -31,7 +31,16 @@ if ! [ -z "$INPUT_BEFORE_SCRIPT" ]; then
 fi
 
 if ! [ -z "$INPUT_SCP_SOURCE" ]; then
-  sshpass -p $INPUT_PASSWORD scp -o StrictHostKeyChecking=no -P $INPUT_PORT -r $INPUT_SCP_SOURCE $INPUT_USERNAME@$INPUT_HOST:$INPUT_SCP_TARGET
+
+  if ! [ -z "$INPUT_PASSWORD" ]; then
+    sshpass -p $INPUT_PASSWORD scp -o StrictHostKeyChecking=no -P $INPUT_PORT -r $INPUT_SCP_SOURCE $INPUT_USERNAME@$INPUT_HOST:$INPUT_SCP_TARGET
+  fi
+
+  if ! [ -z "$INPUT_PRIVATE_KEY" ]; then
+    setup_ssh
+    scp -o StrictHostKeyChecking=no -P $INPUT_PORT -r $INPUT_SCP_SOURCE $INPUT_USERNAME@$INPUT_HOST:$INPUT_SCP_TARGET
+  fi
+
 fi
 
 if ! [ -z "$INPUT_AFTER_SCRIPT" ]; then
