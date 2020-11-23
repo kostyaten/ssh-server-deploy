@@ -24,6 +24,7 @@ if ! [ -z "$INPUT_BEFORE_SCRIPT" ]; then
   fi
 
   if ! [ -z "$INPUT_PRIVATE_KEY" ]; then
+      setup_ssh
       ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p $INPUT_PORT $INPUT_USERNAME@$INPUT_HOST "$CMD"
   fi
 
