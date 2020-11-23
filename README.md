@@ -18,7 +18,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: SSH Server Deploy
-        uses: kostya-ten/ssh-server-deploy@v3
+        uses: kostya-ten/ssh-server-deploy@v4
         with:
           host: ${{ secrets.SERVER_HOST }}
           port: ${{ secrets.SERVER_PORT }}
@@ -45,7 +45,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: SSH Server Deploy
-        uses: kostya-ten/ssh-server-deploy@v1
+        uses: kostya-ten/ssh-server-deploy@v4
         with:
           host: ${{ secrets.SERVER_HOST }}
           port: ${{ secrets.SERVER_PORT }}
