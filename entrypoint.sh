@@ -16,15 +16,15 @@ setup_ssh(){
 
 
 if ! [ -z "$INPUT_BEFORE_SCRIPT" ]; then
+  echo -n "$INPUT_BEFORE_SCRIPT"
   CMD="${INPUT_BEFORE_SCRIPT/$'\n'/' && '}"
 
   if ! [ -z "$INPUT_PASSWORD" ]; then
-    sshpass -p $INPUT_PASSWORD ssh -o StrictHostKeyChecking=no -p $INPUT_PORT $INPUT_USERNAME@$INPUT_HOST "$CMD";
+      sshpass -p $INPUT_PASSWORD ssh -o StrictHostKeyChecking=no -p $INPUT_PORT $INPUT_USERNAME@$INPUT_HOST "$CMD";
   fi
 
   if ! [ -z "$INPUT_PRIVATE_KEY" ]; then
-    setup_ssh
-    ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p $INPUT_PORT $INPUT_USERNAME@$INPUT_HOST "$CMD"
+      ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p $INPUT_PORT $INPUT_USERNAME@$INPUT_HOST "$CMD"
   fi
 
 fi
