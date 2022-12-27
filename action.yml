@@ -25,10 +25,10 @@ inputs:
     description: "After script"
     required: false
   scp_source:
-    description: "After script"
+    description: "SCP source"
     required: false
   scp_target:
-    description: "After script"
+    description: "SCP target"
     required: false
     default: "~"
 branding:
